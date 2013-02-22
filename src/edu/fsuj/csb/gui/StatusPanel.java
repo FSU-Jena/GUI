@@ -18,17 +18,17 @@ public class StatusPanel extends VerticalPanel implements LogListener {
 	private static final long serialVersionUID = -7044888618098845235L;
 	private JTextArea logs; // the text area, in which the messages shall be displayed
 	private StringBuffer log; // buffers the log messages. useful for two purposes: fast appending of text and editing of previous post messages
-	
+	private static final Dimension initialSize=new Dimension(600, 160);
+	private JScrollPane scp;
 	/**
 	 * creates a new StatusPanel instance
 	 */
-	public StatusPanel(int width, int height){
+	public StatusPanel(){
 		super();
-		JScrollPane scp=new JScrollPane(logs=new JTextArea());
-		Dimension d=new Dimension(width, height);
-		scp.setPreferredSize(d);
+		scp=new JScrollPane(logs=new JTextArea());
+		scp.setPreferredSize(initialSize);
 		add(scp);
-		skalieren();
+		scale();
 		LogStream ls;
     try {
 	    ls = new LogStream(this);
@@ -65,5 +65,12 @@ public class StatusPanel extends VerticalPanel implements LogListener {
 	public void clear() {
 		log=new StringBuffer();
 		logs.setText(log.toString());
+  }
+
+	public void setWidth(int w) {
+		Dimension d = scp.getPreferredSize();
+		d.width=w-10;
+		scp.setPreferredSize(d);
+		scale();
   }
 }

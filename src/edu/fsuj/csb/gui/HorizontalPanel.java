@@ -1,9 +1,6 @@
 package edu.fsuj.csb.gui;
+import java.awt.Component;
 import java.awt.Dimension;
-
-import javax.swing.BorderFactory;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
 
 
 /**
@@ -11,59 +8,30 @@ import javax.swing.JPanel;
  * @author Stephan Richter
  *
  */
-public class HorizontalPanel extends JPanel {
-	/**
-   * 
-   */
+public class HorizontalPanel extends ScalablePanel {
+
   private static final long serialVersionUID = -3763921236213613770L;
-	private static int versatz=5; // der Absatnd zwischen den Elementen
-	private int breite=0; // die Breite des Panels, anfänglich null
-	private int höhe=0; // die Höhe des Panels, anfänglich null
-	
-	/**
-	 * erzeugt ein neues, leeres Panel
-	 */
-	public HorizontalPanel(){
-		super(); // leeres Panel ezuegen
-		init(); // java-eigenes automatisches Layout abschalten
-	}
-
-	/**
-	 * erzeugt ein neues, leeres Panel mit Beschriftung
-	 * @param string die Beschriftung, die im Rahmen um das Panel erscheinen soll
-	 */
-	public HorizontalPanel(String string) {
-		super(); // leeres Panel erzuegen
-		init(); // Java-internes automatisches Layout abschalten
-		höhe+=15; // höhe initialisieren
-		versatz+=35;
-		breite+=5;
-		setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),string)); // Rahmen um Feld Erzeugen
-	}
-
-	/**
-	 * schaltet das Java-eigene automatische Layout ab
-	 */
-	private void init() {
-		this.setLayout(null);
-	}
-	
-	/**
-	 * fügt eine grafische Komponente zum Panel hinzu. die Komponente wird rechts neben der zuletzt hinzugefügten angeordnet
-	 * @param c die zuzufügende Komponente
-	 */
-	public void add(JComponent c){
-		c.setSize(c.getPreferredSize()); // skaliert die zuzufügende Komponente auf ihre bevorzugte Größe		
-		c.setLocation(breite, versatz/2); // ordnet die Komponente an
-		breite+=c.getWidth(); // speichert die aktuelle Position, bis zu der Komponenten gehen, damit auch die nächste Komponente angeordnert werden kann
-		höhe=Math.max(höhe, c.getHeight()); // bestimmt die minimalgröße des Panels nach Addition der grafischen Komponente
-		super.add(c); // fügt die grafische Komponente dem Panel hinzu
-	}
-	
+		
 	/**
 	 * skaliert das gesamte Panel so, dass alle hinzugefügten Komponenten sichtbar bleiben
 	 */
-	public void skalieren(){
-		setPreferredSize(new Dimension(breite+versatz+versatz,höhe+versatz));
-	}
+	public void scale(){
+		Component[] components = getComponents();
+		int width=0;
+		int maxHeight=0;
+		for (Component c:components){
+			if (c instanceof ScalablePanel) {
+				ScalablePanel scalablePanel = (ScalablePanel) c;
+				scalablePanel.scale();	      
+      }
+			width+=space;
+			c.setSize(c.getPreferredSize());
+			c.setLocation(width, top);
+			if (c.getHeight()>maxHeight) maxHeight=c.getHeight();
+			width+=c.getWidth();
+		}
+		
+		setPreferredSize(new Dimension(width+5, maxHeight+space+space));
+		setSize(getPreferredSize());
+	}	
 }

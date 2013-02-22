@@ -46,7 +46,7 @@ public class IntegerInputField extends HorizontalPanel implements ActionListener
 		add(increaseBtn); // Knopf zum Panel hinzufügen
 		add(countField); // Eingabefeld zum Panel hinzufügen
 		add(decreaseBtn); // Knopf zum Panel hinzufügen
-		skalieren();
+		scale();
 	}
 
 	/**

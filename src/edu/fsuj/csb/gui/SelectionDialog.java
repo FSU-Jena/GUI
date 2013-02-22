@@ -47,7 +47,7 @@ public class SelectionDialog extends JDialog {
 			bt.addActionListener(plopp);
 			vp.add(bt);
 		}
-		vp.skalieren();
+		vp.scale();
 		add(vp);
 		pack();
 		setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
