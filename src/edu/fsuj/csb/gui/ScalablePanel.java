@@ -1,8 +1,5 @@
 package edu.fsuj.csb.gui;
 
-import java.awt.Color;
-import java.util.Random;
-
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
