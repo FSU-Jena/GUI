@@ -12,6 +12,14 @@ public class HorizontalPanel extends ScalablePanel {
 
   private static final long serialVersionUID = -3763921236213613770L;
 		
+	public HorizontalPanel(String title) {
+		super(title);
+  }
+
+	public HorizontalPanel() {
+		super();
+  }
+
 	/**
 	 * skaliert das gesamte Panel so, dass alle hinzugefügten Komponenten sichtbar bleiben
 	 */
